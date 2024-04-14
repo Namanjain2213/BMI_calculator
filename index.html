@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .wrapper {
+        /* border: 2px solid black; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        background-color: purple;
+        color: white;
+
+    }
+
+    #result {
+        margin: 2rem 0;
+        font-size: 1.5rem;
+        border: 2px solid white;
+        height: 50px;
+        width: 350px;
+        border-radius: 20;
+        box-shadow: 1px 1px 10px white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn {
+        padding: 0.5rem 3rem;
+        border-radius: 20px;
+        background-color: white;
+        color: black;
+        transition: all 0.4s ease-in-out;
+
+    }
+
+    .btn:hover {
+        box-shadow: 1.5px 1.5px 20px white;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1 style="font-size: 2.5rem;">BMI Calculator</h1>
+            <form action="" style="margin-top: 2rem;">
+                <p style="margin-top: 1rem;"><label for=""> Height in CM </label><input type="text" id="height"></p>
+                <p style="margin-top: 1rem;"><label for=""> Weight in KG </label><input type="text" id="Weight"></p>
+                <div class="but" style="margin-top: 1rem;">
+                    <button id="button" class="btn">Calculate</button>
+                    <button id="reset" class="btn">Reset</button>
+
+                </div>
+
+                <div id="result"></div>
+                <div class="weight-guide">
+                    <h2 style="margin-top: 1rem;"> BMI Weight Guide</h2>
+                    <p style="margin-top: 1rem;">Under Weight = less than 18.6</p>
+                    <p style="margin-top: 1rem;">Normal Weight = 18.6 and 24.9</p>
+                    <p style="margin-top: 1rem;">Over Weight = Greater then 24.9</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const height = parseInt(document.querySelector("#height").value);
+            const weight = parseInt(document.querySelector("#Weight").value);
+            const result = document.querySelector("#result");
+
+            if (height == "" || height < 0 || isNaN(height)) {
+                result.innerHTML = `Please give a valid height ${height}`;
+            } else if (weight == "" || weight < 0 || isNaN(weight)) {
+                result.innerHTML = `Please give a valid weight ${weight}`;
+            } else {
+                const bmi = (weight / ((height * height) / 10000)).toFixed(2);
+
+                if (bmi < 18.6) {
+                    result.innerHTML = `<span>${bmi} , You are Underweight</span>`;
+                } else if (bmi >= 18.6 && bmi < 24.9) {
+                    result.innerHTML = `<span>${bmi} , You are Normal Weight</span>`;
+                } else {
+                    result.innerHTML = `<span>${bmi} , You are Overweight</span>`;
+                }
+            }
+        });
+
+        const reset = document.querySelector("#reset");
+        reset.addEventListener('click', function (e) {
+            document.querySelector("#height").value = "";
+            document.querySelector("#Weight").value = "";
+            document.querySelector("#result").innerHTML = "";
+        });
+
+
+    </script>
+
+</body>
+
+</html>
